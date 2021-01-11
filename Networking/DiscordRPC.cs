@@ -12,12 +12,20 @@ namespace FH4RP.Networking
     {
         public static DiscordRpcClient discordClient;
 
+        //Fix For Time Resetting To 00:00 Each Update
+        private static Timestamps elapsedTime;
+
         public static void Initialize()
         {
             discordClient = new DiscordRpcClient("798016065870495744");
             discordClient.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
             discordClient.OnReady += (sender, e) => { Console.WriteLine($"[Discord] Received ready from {e.User.Username}!"); };
             discordClient.OnPresenceUpdate += (sender, e) => { /*Console.WriteLine("[Discord] Received presence update!");*/ };
+            if (elapsedTime == null)
+            {
+                //Only Define Timestamp Once - Fix For Time Resetting To 00:00 Each Update - Only Done Once Project Is Opened And File Is Selected
+                elapsedTime = Timestamps.Now;
+            }
             discordClient.Initialize();
         }
 
@@ -27,12 +35,14 @@ namespace FH4RP.Networking
             {
                 Details = VehicleDB.Instance.GetVehicle(data.CarOrdinal).GetVehicleInfo(),
                 State = $"[{data.CarClass.ToString()} | {data.CarPI}] - {data.GetMPH()} mph",
+                Timestamps = elapsedTime,
                 Assets = new Assets()
                 {
                     LargeImageKey = "forza-horizon-4-1024",
                     SmallImageKey = "h4-small"
                 }
-            });
+        });
         }
+
     }
 }
