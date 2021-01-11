@@ -14,7 +14,7 @@ namespace FH4RP
         {
 
             Console.WriteLine("Forza Horizon 4 | Discord Rich Presence App");
-            Console.WriteLine("Developed by digital#0001 | https://dgtl.dev");
+            Console.WriteLine("Developed by PiSaucer");
             Console.WriteLine();
             Console.WriteLine("If you haven't already, open a command prompt as admin");
             Console.WriteLine("and run the following command to allow Forza Horizon 4's");
